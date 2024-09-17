@@ -60,12 +60,12 @@ if the method "file.name()" returned NULL. As an example, one of the corrections
 ...
 static int ini_openread(const char* filename, INI_FILETYPE *file)
 {
-*file = SD.open(filename, FILE_READ);
-if(!file){
-Serial.println("Failed to open file for reading");
-return 0;
-}
-return (file->name() && ((file->name())[0] != 0) );
+  *file = SD.open(filename, FILE_READ);
+  if(!file){
+    Serial.println("Failed to open file for reading");
+    return 0;
+  }
+  return (file->name() && ((file->name())[0] != 0) );
 }
 ...
 ```
