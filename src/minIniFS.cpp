@@ -20,6 +20,17 @@
  *  Version: $Id: minIni.c 53 2015-01-18 13:35:11Z thiadmer.riemersma@gmail.com $
  */
 
+
+ /*  minIniFS - Arduino INI file parser, suitable for embedded systems
+ *  Based: It's based in the minIni library from "minIni4Arduino"
+ *
+ *  Copyright (c) GuerraTron24, 2024-2033
+ *
+ *  Licensed under the Apache License, Version 2.0
+ *
+ *  Version: 1.0.0 $ minIniFS.h 2024-09-16 13:35:11Z guerratron24.dinertron@gmail.com $
+ */
+
 #if (defined _UNICODE || defined __UNICODE__ || defined UNICODE) && !defined INI_ANSIONLY
 # if !defined UNICODE   /* for Windows */
 #   define UNICODE
@@ -30,7 +41,8 @@
 #endif
 
 #define MININI_IMPLEMENTATION
-#include "minIni.h"
+#include "minIniFS.h"
+
 #if defined NDEBUG
   #define assert(e)
 #else
@@ -418,7 +430,8 @@ int  ini_getsection(int idx, TCHAR *Buffer, int BufferSize, const TCHAR *Filenam
   return (int)_tcslen(Buffer);
 }
 
-/** ini_getkey()
+/** ini_getkey()      
+ * \description       Reads the name of an indexed key inside a given section.
  * \param Section     the name of the section to browse through, or NULL to
  *                    browse through the keys outside any section
  * \param idx         the zero-based sequence number of the key to return

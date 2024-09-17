@@ -10,3 +10,6 @@ The C++ class in minIni.h was contributed by Steven Van Ingelgem.
 
 The option to compile minIni as a read-only library was contributed by Luca
 Bassanello.
+
+The SPIFFS compatibility and others modifications was contributed by Juanjo 
+Guerra - GuerraTron24 - <dinertron@gmail.com>

@@ -14,10 +14,20 @@
  *  License for the specific language governing permissions and limitations
  *  under the License.
  *
- *  Version: $Id: minIni.h 53 2015-01-18 13:35:11Z thiadmer.riemersma@gmail.com $
+ *  Version: $Id: minIniFS.h 53 2015-01-18 13:35:11Z thiadmer.riemersma@gmail.com $
  */
-#ifndef MININI_H
-#define MININI_H
+ 
+ /*  minIniFS - Arduino INI file parser, suitable for embedded systems
+ *  Based: It's based in the minIni library from "minIni4Arduino"
+ *
+ *  Copyright (c) GuerraTron24, 2024-2033
+ *
+ *  Licensed under the Apache License, Version 2.0
+ *
+ *  Version: 1.0.0 $ minIniFS.h 2024-09-16 13:35:11Z guerratron24.dinertron@gmail.com $
+ */
+#ifndef MININIFS_H
+#define MININIFS_H
 
 #include "minGlue.h"
 
@@ -25,7 +35,7 @@
   #include <tchar.h>
   #define mTCHAR TCHAR
 #else
-  /* force TCHAR to be "char", but only for minIni */
+  /* force TCHAR to be "char", but only for minIniFS */
   #define mTCHAR char
 #endif
 
@@ -36,6 +46,7 @@
 #if defined __cplusplus
   extern "C" {
 #endif
+
 
 int   ini_getbool(const mTCHAR *Section, const mTCHAR *Key, int DefValue, const mTCHAR *Filename);
 long  ini_getl(const mTCHAR *Section, const mTCHAR *Key, long DefValue, const mTCHAR *Filename);
@@ -67,16 +78,17 @@ int  ini_browse(INI_CALLBACK Callback, void *UserData, const mTCHAR *Filename);
 
 #if defined __cplusplus
 
-#if defined __WXWINDOWS__
+/*#if defined __WXWINDOWS__
 	#include "wxMinIni.h"
-#else
+#else*/
 
-  /* The C++ class in minIni.h was contributed by Steven Van Ingelgem. */
-  class minIni
+  /* The C++ class in minIniFS.h was contributed by Steven Van Ingelgem. */
+  class minIniFS
   {
   public:
-    minIni(const String& filename) : iniFilename(filename)
-      { }
+    minIniFS(const String& filename) : iniFilename(filename)
+      { }/*{ iniFilename = filename; }*/
+    ~minIniFS(){ iniFilename = ""; }
 
     bool getbool(const String& Section, const String& Key, bool DefValue=false) const
       { return ini_getbool(Section.c_str(), Key.c_str(), int(DefValue), iniFilename.c_str()) != 0; }
@@ -146,11 +158,42 @@ int  ini_browse(INI_CALLBACK Callback, void *UserData, const mTCHAR *Filename);
       { return ini_browse(Callback, UserData, iniFilename.c_str()) != 0; }
 #endif
 
+    /** Método para listar todas las claves y valores encontrados en el archivo (El archivo debe existir). 
+      * Debe permitirse la impresión a través de las macros: INI_PRINT y INI_PRINTF4. 
+      * Basado en 'minIni.pdf'
+      */
+    void showKeysValues(){
+        INI_PRINTF4(INFO_HEAD "showKeysValues():\n",NULL,NULL,NULL,NULL);
+        int s, k;
+        char section[40], key[40];
+         /*for (s = 0; ini_getsection(s, section, sizeof section, iniFilename.c_str()) > 0; s++) {
+            INI_PRINTF4(INFO_HEAD " [%s]\n",section,NULL,NULL,NULL);
+            for (k = 0; ini_getkey(section, k, key, sizeof key, iniFilename.c_str()) > 0; k++){
+                INI_PRINTF4("\t%s\n",key,NULL,NULL,NULL);
+            }
+        }*/
+        String sec, ky, val;
+        for (s = 0;  s < 10; s++) {
+            sec = getsection(s);
+            if(!sec || sec.length()<1){ break; }
+            INI_PRINTF4("[%s]\n",sec,NULL,NULL,NULL);
+            for (k = 0;  s < 10; k++){
+                ky = getkey(sec, k);
+                if(!ky || ky.length()<1){ break; }
+                val = gets(sec, ky, "?");
+                INI_PRINTF4("\t%s = \t%s\n",ky,val,NULL,NULL);
+            }
+        }
+        sec = "";
+        ky = "";
+        val = "";
+    }
+
   private:
     String iniFilename;
   };
 
-#endif /* __WXWINDOWS__ */
+ /*#endif __WXWINDOWS__ */
 #endif /* __cplusplus */
 
 #endif /* MININI_H */

@@ -1,0 +1,26 @@
+#######################################
+# Syntax Coloring Map For minIniFS
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+minIni	KEYWORD1
+
+ini_FS  KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+gets	        KEYWORD2
+geti	        KEYWORD2
+getbool	        KEYWORD2
+getf	        KEYWORD2
+
+put	            KEYWORD2
+
+showKeysValues  KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
