@@ -18,6 +18,7 @@ It is used following similar instructions to those of the "minIni4Arduino" libra
 --------------------------------------------------------
 ### NOTE
 - This library is verified to work with ESP32 (DOIT DevKit v1) + SD-Shield
+- It has been tested using the Arduino IDE
 
 #### ONLY WORKS IF ADDED TO THE ARDUINO GLOBAL LIBRARY DIRECTORY
 
