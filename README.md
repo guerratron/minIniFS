@@ -22,7 +22,7 @@ Now it can work with both SD and SPIFFS (it will work on files with a generic ha
 For this purpose, a static function "ini_FS(..)" has been added, which should be called before the read and write methods.
 This function will be passed the desired File System, for example:
 
-```
+```c
 minIni ini("/config.ino");
 
 ini_FS(SPIFFS); //will read the file from the SPIFFS
@@ -56,7 +56,7 @@ Based on 'minIni.pdf'.
 I had to modify the functions "ini_openread(..), ini_openwrite(), ini_rename()" in the file "minGlue.h" because it caused a **FATAL ERROR** due to not checking
 if the method "file.name()" returned NULL. As an example, one of the corrections in the functions would be like this:
 
-```
+```c
 ...
 static int ini_openread(const char* filename, INI_FILETYPE *file)
 {
@@ -75,7 +75,7 @@ With this I was able to read files.
 The SD library is a bit delicate and if you don't give it the "slashbar" at the beginning of the file name it is not able to find it properly. Also there are different versions
 for different Micros like AVR, ESP, .. and they could be mixed up.
 
-I also had to make a few "castings" to variables of the "char-array" type to tell it to treat them as "(uint8_t\*)", in the places that the compiler was telling me... for example in what are now the lines: 69, 85, 86, .. of the "minGlue.h" file.
+I also had to make a few "castings" to variables of the "char-array" type to tell it to treat them as "(uint8_t\*)", in the places that the compiler was telling me... for example in what are now the lines: 171, 200, 201, .. of the "minGlue.h" file.
 
 Some more minor changes to adapt it to the Arduino IDE, such as the properties file, keywords, ..
 
