@@ -13,7 +13,8 @@ Permite buscar claves en secciones, modificarlas e incluso listar todo el archiv
 
 # Use
 
-Se utiliza siguiendo instrucciones similares a las de la biblioteca "minIni4Arduino", para información más detallada leer el original **README1.md**
+Se utiliza siguiendo instrucciones similares a las de la biblioteca "minIni4Arduino", para información más detallada leer el original 
+[README.md](https://github.com/lipoyang/minIni4Arduino/blob/master/README.md)
 
 Generalmente, instálalo desde el administrador de bibliotecas de Arduino IDE (si existe).
 
@@ -39,7 +40,7 @@ Para ello se le ha añadido una función estática "ini_FS(..)" que habría que 
 A esta función se le pasará el Sistema de Archivos deseado, por ejemplo:
 
 ```c
- minIni ini("/config.ino");
+ minIniFS ini("/config.ino");
 
  ini_FS(SPIFFS); //leerá el archivo desde el SPIFFS
  Serial .println("From SPIFFS: ");

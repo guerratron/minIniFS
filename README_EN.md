@@ -13,7 +13,8 @@ It allows you to search for keys in sections, modify them and even list the enti
 
 # Use
 
-It is used following similar instructions to those of the "minIni4Arduino" library, for more detailed information read the original README1.md
+It is used following similar instructions to those of the "minIni4Arduino" library, for more detailed information read the original 
+[README.md](https://github.com/lipoyang/minIni4Arduino/blob/master/README.md)
 
 Generally, install it from the Arduino IDE library manager (if it exists).
 
@@ -38,7 +39,7 @@ For this purpose, a static function "ini_FS(..)" has been added, which should be
 This function will be passed the desired File System, for example:
 
 ```c
-minIni ini("/config.ino");
+minIniFS ini("/config.ino");
 
 ini_FS(SPIFFS); //will read the file from the SPIFFS
 Serial .println("From SPIFFS: ");
