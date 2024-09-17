@@ -1,10 +1,11 @@
 # minIniFS (INI file library) for the Arduino IoT world
+minIniFS is a programmer's library to read and write "INI" files in embedded systems.
 
 ### Acknowledgement
 
 > This work is based on the "minIni4Arduino" library [minIni4Arduino](https://github.com/lipoyang/minIni4Arduino)
 
->  All of this is also derived from the great library of [https://github.com/compuphase/minIni](https://github.com/compuphase/minIni)
+>  All of this is also derived from the great compuphase library of [minIni](https://github.com/compuphase/minIni)
 
 --------------------------------------------------------
 # MODIFICATIONS TO THE ORIGINAL "minIni4Arduino" LIBRARY
