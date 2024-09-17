@@ -13,6 +13,11 @@ minIniFS is a programmer's library to read and write "INI" files in embedded sys
 
 It is used following similar instructions to those of the "minIni4Arduino" library, for more detailed information read the original README1.md
 
+Generally, install it from the Arduino IDE library manager (if it exists).
+
+Another alternative way would be to copy the directory and include it "by hand" in the Arduino libraries folder (inside "../libraries/"),
+then restart the IDE.
+
 --------------------------------------------------------
 # MODIFICATIONS TO THE ORIGINAL "minIni4Arduino" LIBRARY
 --------------------------------------------------------
