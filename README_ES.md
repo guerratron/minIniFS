@@ -1,17 +1,17 @@
-# minIniFS (INI file library) for the Arduino IoT world
+# minIniFS (biblioteca archivos INI) para el mundo IoT de Arduino
 
 **minIniFS** es una librería de programador para leer y escribir archivos "INI" en *sistemas integrados* (embebidos).
 
 Permite buscar claves en secciones, modificarlas e incluso listar todo el archivo INI al completo con sus Secciones-Claves-Valores.
 
-### Acknowledgement
+### Reconocimiento
 
 > Este trabajo está basado en la biblioteca [minIni4Arduino](https://github.com/lipoyang/minIni4Arduino)
 
 >  Todo esto además es un trabajo derivado de la genial biblioteca de compufase en [minIni](https://github.com/compuphase/minIni)
 
 
-# Use
+# Uso
 
 Se utiliza siguiendo instrucciones similares a las de la biblioteca "minIni4Arduino", para información más detallada leer el original 
 [README.md](https://github.com/lipoyang/minIni4Arduino/blob/master/README.md)
@@ -20,11 +20,17 @@ Generalmente, instálalo desde el administrador de bibliotecas de Arduino IDE (s
 
 Otra forma alternativa sería copiar el directorio e incluirlo "a mano" en la carpeta de bibliotecas de Arduino (dentro de "../libraries/"), luego reiniciar el IDE.
 
+# Ejemplos
+
+Existen dos ejemplos de utilización en la carpeta "/examples":
+ - Simple_Test : Muestra la lectura de un archivo "**confMiFS.ini**" de sus *Secciones, Claves y Valores*, tanto en **SD** como en **SPIFFS**.
+ - SPIFFS_Test : Demuestra cómo cambiar Valores en Secciones, sólo en **SPIFFS**, y lista el directorio *root*.
+
 ----------------------------------------------------------
 # MODIFICACIONES A LA BIBLIOTECA ORIGINAL "minIni4Arduino"
 ----------------------------------------------------------
 
-### NOTE
+### OBSERVACIONES
 
 - Esta biblioteca se ha verificado que funciona con una placa **ESP32 (DOIT DevKit v1) + SD-Shield**
 - Se ha testeado utilizando el IDE de Arduino
@@ -115,3 +121,7 @@ Compatibilidad con LittleFS
 
 Muchas gracias al autor de la librería: *Bizan Nishimura (lipoyang)* <http://lipoyang.net> es un GRAN TRABAJO.  
 La librería la he descargado de: https://github.com/lipoyang/minIni4Arduino
+
+#### By
+
+Juanjo Guerra - GuerraTron24 - <dinertron@gmail>

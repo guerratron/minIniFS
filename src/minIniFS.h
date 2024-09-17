@@ -173,11 +173,11 @@ int  ini_browse(INI_CALLBACK Callback, void *UserData, const mTCHAR *Filename);
             }
         }*/
         String sec, ky, val;
-        for (s = 0;  s < 10; s++) {
+        for (s = 0;  s < 20; s++) {
             sec = getsection(s);
             if(!sec || sec.length()<1){ break; }
             INI_PRINTF4("[%s]\n",sec,NULL,NULL,NULL);
-            for (k = 0;  s < 10; k++){
+            for (k = 0;  s < 20; k++){
                 ky = getkey(sec, k);
                 if(!ky || ky.length()<1){ break; }
                 val = gets(sec, ky, "?");

@@ -21,6 +21,12 @@ Generally, install it from the Arduino IDE library manager (if it exists).
 Another alternative way would be to copy the directory and include it "by hand" in the Arduino libraries folder (inside "../libraries/"),
 then restart the IDE.
 
+# Examples
+
+There are two usage examples in the "/examples" folder:
+ - Simple_Test : Demonstrates reading a "**confMiFS.ini**" file of its *Sections, Keys and Values*, both in **SD** and **SPIFFS**.
+ - SPIFFS_Test : Demonstrates how to change Values ​​in Sections, only in **SPIFFS**, and lists the *root* directory.
+
 --------------------------------------------------------
 # MODIFICATIONS TO THE ORIGINAL "minIni4Arduino" LIBRARY
 --------------------------------------------------------
@@ -112,3 +118,7 @@ Compatibility with LittleFS
 
 Many thanks to the author of the library: *Bizan Nishimura (lipoyang)* <http://lipoyang.net> it is a GREAT JOB.  
 I downloaded the library from: https://github.com/lipoyang/minIni4Arduino
+
+#### By
+
+Juanjo Guerra - GuerraTron24 - <dinertron@gmail>

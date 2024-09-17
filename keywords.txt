@@ -5,9 +5,9 @@
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
-minIni	KEYWORD1
+minIniFS	KEYWORD1
 
-ini_FS  KEYWORD1
+ini_FS      KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
