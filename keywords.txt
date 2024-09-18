@@ -3,6 +3,12 @@
 #######################################
 
 #######################################
+# Library (KEYWORD3)
+#######################################
+
+minIniFS	KEYWORD3
+
+#######################################
 # Datatypes (KEYWORD1)
 #######################################
 minIniFS	KEYWORD1
@@ -14,13 +20,22 @@ ini_FS      KEYWORD1
 #######################################
 gets	        KEYWORD2
 geti	        KEYWORD2
+getl	        KEYWORD2
 getbool	        KEYWORD2
 getf	        KEYWORD2
 
+getsection      KEYWORD2
+getkey          KEYWORD2
+
 put	            KEYWORD2
 
+del	            KEYWORD2
+
+browse          KEYWORD2
 showKeysValues  KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
+INI_FILETYPE    LITERAL1
+INI_FS          LITERAL1

@@ -165,6 +165,8 @@ int  ini_browse(INI_CALLBACK Callback, void *UserData, const mTCHAR *Filename);
     void showKeysValues(){
         INI_PRINTF4(INFO_HEAD "showKeysValues():\n",NULL,NULL,NULL,NULL);
         int s, k;
+        uint8_t s_max = 10;
+        uint8_t k_max = 10;
         char section[40], key[40];
          /*for (s = 0; ini_getsection(s, section, sizeof section, iniFilename.c_str()) > 0; s++) {
             INI_PRINTF4(INFO_HEAD " [%s]\n",section,NULL,NULL,NULL);
@@ -173,15 +175,15 @@ int  ini_browse(INI_CALLBACK Callback, void *UserData, const mTCHAR *Filename);
             }
         }*/
         String sec, ky, val;
-        for (s = 0;  s < 20; s++) {
+        for (s = 0;  s < s_max; s++) {
             sec = getsection(s);
             if(!sec || sec.length()<1){ break; }
-            INI_PRINTF4("[%s]\n",sec,NULL,NULL,NULL);
-            for (k = 0;  s < 20; k++){
+            INI_PRINTF4("%d. [%s]\n",s,sec,NULL,NULL);
+            for (k = 0;  k < k_max; k++){
                 ky = getkey(sec, k);
                 if(!ky || ky.length()<1){ break; }
                 val = gets(sec, ky, "?");
-                INI_PRINTF4("\t%s = \t%s\n",ky,val,NULL,NULL);
+                INI_PRINTF4("\t%d. %s = \t%s\n",k,ky,val,NULL);
             }
         }
         sec = "";

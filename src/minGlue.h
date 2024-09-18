@@ -61,7 +61,7 @@
 #define INI_FS                          fs::FS&
 
 /*---------------------*/
-/* IMPRESIÓN A DISPOSITIVO DE SALIDA: HABILITAR O DESHABILITAR (POR DEFECTO NONE) */
+/* IMPRESIÓN A DISPOSITIVO DE SALIDA: HABILITAR O DESHABILITAR (POR DEFECTO "ARDUINO") */
 /*---------------------*/
 #define INFO_HEAD "::minIniFS::"
 
@@ -70,7 +70,7 @@
 #define INI_PRINT_ARDUINO   Serial.print
 /*INI_PRINT_NONE, INI_PRINT_C, INI_PRINT_ARDUINO, ..  */
  /** POR EJEMPLO: INI_PRINT(F("File exists, OK!.")); */
-#define INI_PRINT(x)    (INI_PRINT_NONE(x))
+#define INI_PRINT(x)    (INI_PRINT_ARDUINO(x))
 /*NONE: */
 /*C: printf(f,v1,v2,v3,v4)*/
 /*ARDUINO: Serial.printf(f,v1,v2,v3,v4)*/
@@ -109,8 +109,7 @@ static int ini_openread(const char* filename, INI_FILETYPE *file)
     /*INI_PRINTF4(INFO_HEAD "ini_openread('%s'):: \n",filename,NULL,NULL,NULL);*/
     /**/
     if (!_FS.exists(filename)){
-        /*INI_PRINT(F("File doesn't exist or not FS mounted.. return 0\n"));*/
-        /*INI_PRINTF4("--NO EXISTE %d, %s--",1,"dos",NULL,NULL);*/
+        INI_PRINT(F("File doesn't exist or not FS mounted.. return 0\n"));/**/
         return 0;
     }
     *file = _FS.open(filename, FILE_READ);
