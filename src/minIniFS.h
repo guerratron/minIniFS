@@ -87,7 +87,7 @@ int  ini_browse(INI_CALLBACK Callback, void *UserData, const mTCHAR *Filename);
   {
   public:
     minIniFS(const String& filename) : iniFilename(filename)
-      { }/*{ iniFilename = filename; }*/
+      { iniFilename = filename; }
     ~minIniFS(){ iniFilename = ""; }
 
     bool getbool(const String& Section, const String& Key, bool DefValue=false) const
@@ -165,30 +165,35 @@ int  ini_browse(INI_CALLBACK Callback, void *UserData, const mTCHAR *Filename);
     void showKeysValues(){
         INI_PRINTF4(INFO_HEAD "showKeysValues():\n",NULL,NULL,NULL,NULL);
         int s, k;
-        uint8_t s_max = 10;
-        uint8_t k_max = 10;
-        char section[40], key[40];
-         /*for (s = 0; ini_getsection(s, section, sizeof section, iniFilename.c_str()) > 0; s++) {
-            INI_PRINTF4(INFO_HEAD " [%s]\n",section,NULL,NULL,NULL);
+        uint8_t s_max = 20;
+        uint8_t k_max = 20;
+        char section[40], key[40], value[80];
+         /**/
+        for (s = 0; ini_getsection(s, section, sizeof section, iniFilename.c_str()) > 0; s++) {
+            INI_PRINTF4(" [%s]\n",section,NULL,NULL,NULL);
             for (k = 0; ini_getkey(section, k, key, sizeof key, iniFilename.c_str()) > 0; k++){
-                INI_PRINTF4("\t%s\n",key,NULL,NULL,NULL);
+                ini_gets(section, key, "", value, sizeof value, iniFilename.c_str());
+                INI_PRINTF4("\t%s = \t%s\n",key,value,NULL,NULL);
             }
-        }*/
+        }/*
         String sec, ky, val;
         for (s = 0;  s < s_max; s++) {
             sec = getsection(s);
             if(!sec || sec.length()<1){ break; }
-            INI_PRINTF4("%d. [%s]\n",s,sec,NULL,NULL);
+            INI_PRINTF4(INFO_HEAD "[%s]\n",sec,NULL,NULL,NULL);/*INI_PRINTF4("%d. [%s]\n",s,sec,NULL,NULL);* /
             for (k = 0;  k < k_max; k++){
                 ky = getkey(sec, k);
                 if(!ky || ky.length()<1){ break; }
                 val = gets(sec, ky, "?");
-                INI_PRINTF4("\t%d. %s = \t%s\n",k,ky,val,NULL);
+                INI_PRINTF4(INFO_HEAD "\t%s = \t%s\n",ky,val,NULL,NULL);
             }
         }
         sec = "";
         ky = "";
-        val = "";
+        val = "";*/
+        section[0] = '\0';
+        key[0] = '\0';
+        value[0] = '\0';
     }
 
   private:

@@ -37,7 +37,8 @@
 #include <stdio.h>
 #include <Arduino.h>
 
-/*#define NDEBUG //si hay errores en cláusulas 'assert'*/
+/*#define NDEBUG //si hay errores en cláusulas 'assert'
+#define INI_BUFFERSIZE  512 //de todas formas se establece en minIniFS.h por defecto a 512*/
 
 /*#define FS_NO_GLOBALS //allow spiffs to coexist with SD card, define BEFORE including FS.h*/
 #include <FS.h>
