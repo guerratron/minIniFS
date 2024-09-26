@@ -166,7 +166,7 @@ static int ini_read(char *buffer, int size, INI_FILETYPE *file)
     return i;
 }
 
-static int ini_write(char *buffer, INI_FILETYPE *file)
+static int ini_write(const char *buffer, INI_FILETYPE *file)
 {
     int size = strlen(buffer);
     return ( file->write((uint8_t*)buffer, size) > 0);
@@ -217,6 +217,7 @@ static int ini_rename(const char *source, const char *dest)
 /* for floating-point support, define additional types and functions */
 #define INI_REAL                        float
 #define ini_ftoa(string,value)          sprintf((string),"%f",(value))
+//#define ini_ftoa(string, value)         string = String(value);
 #define ini_atof(string)                (INI_REAL)strtod((string),NULL)
 
 #endif /*MINGLUE_H*/

@@ -29,10 +29,11 @@ bool sd_ok = false;
 bool spiffs_ok = false;
 bool initial = true;
 
-void _show_title(char *title){
-  Serial.println(" -----------------------------------");
-  Serial.println(title);
-  Serial.println(" -----------------------------------");
+void _show_title(const char *title)
+{
+    Serial.println(F(" -----------------------------------"));
+    Serial.println(F(title));
+    Serial.println(F(" -----------------------------------"));
 }
 
 void setup()
@@ -45,17 +46,17 @@ void setup()
   _show_title("INI file test 'SimpleTest' start");
 
   //SD
-  Serial.println("SD init");
+  Serial.println(F("SD init"));
   sd_ok = SD.begin();
-  if (!sd_ok){ Serial.println("SD Card Mount Failed"); }
+  if (!sd_ok){ Serial.println(F("SD Card Mount Failed")); }
 
   /**/
   //SPIFFS
-  Serial.println("SPIFFS init");
+  Serial.println(F("SPIFFS init"));
   spiffs_ok = SPIFFS.begin();
-  if (!spiffs_ok){ Serial.println("SPIFFS Failed"); }
+  if (!spiffs_ok){ Serial.println(F("SPIFFS Failed")); }
 
-  char* fileName = "/confMiFS.ini";
+  const char* fileName = "/confMiFS.ini";
 
   // Objeto representando la librería
   minIniFS ini(fileName);
@@ -76,7 +77,7 @@ void setup()
 void loop(){
   if(initial){
     Serial.println();
-    Serial.println(" ---- LOOP RUNNING ---");
+    Serial.println(F(" ---- LOOP RUNNING ---"));
     initial = false;
   }
 }

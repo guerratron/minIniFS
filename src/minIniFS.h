@@ -164,10 +164,10 @@ int  ini_browse(INI_CALLBACK Callback, void *UserData, const mTCHAR *Filename);
       */
     void showKeysValues(){
         INI_PRINTF4(INFO_HEAD "showKeysValues():\n",NULL,NULL,NULL,NULL);
-        int s, k;
-        uint8_t s_max = 20;
-        uint8_t k_max = 20;
-        char section[40], key[40], value[80];
+        unsigned int s, k;
+        uint8_t s_max = 40;
+        uint8_t k_max = 40;
+        char section[s_max], key[k_max], value[120];
          /**/
         for (s = 0; ini_getsection(s, section, sizeof section, iniFilename.c_str()) > 0; s++) {
             INI_PRINTF4(" [%s]\n",section,NULL,NULL,NULL);

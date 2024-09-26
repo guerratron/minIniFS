@@ -35,10 +35,11 @@
 bool spiffs_ok = false;
 bool initial = true;
 
-void _show_title(char *title){
-  Serial.println(" -----------------------------------");
-  Serial.println(title);
-  Serial.println(" -----------------------------------");
+void _show_title(const char *title)
+{
+    Serial.println(F(" -----------------------------------"));
+    Serial.println(F(title));
+    Serial.println(F(" -----------------------------------"));
 }
 
 /** pequeña función en SPIFFS para listar los archivos en el directorio solicitado, 
@@ -84,52 +85,62 @@ void _SPIFFS_listDir(const char * dirname, uint8_t levels = 0, uint8_t tabs = 0)
 
 void setup()
 {
-  Serial.begin(115200);
-  while (!Serial) {
-    delay(100);
-  }
+    Serial.begin(115200);
+    while (!Serial)
+    {
+        delay(100);
+    }
 
-  _show_title("INI file test 'SPIFFS_Test' start");
+    _show_title("INI file test 'SPIFFS_Test' start");
 
-  //SPIFFS
-  Serial.println("SPIFFS init");
-  spiffs_ok = SPIFFS.begin();
-  if (!spiffs_ok){ Serial.println("SPIFFS Failed"); }
+    // SPIFFS
+    Serial.println(F("SPIFFS init"));
+    spiffs_ok = SPIFFS.begin();
+    if (!spiffs_ok)
+    {
+        Serial.println(F("SPIFFS Failed"));
+    }
 
-  char* fileName = "/confMiFS.ini";
+    const char *fileName = "/confMiFS.ini";
 
-  // Objeto representando la librería
-  minIniFS ini(fileName);
-  
-  if(spiffs_ok){
-    //si no existe el '.ini' se creará uno por defecto llamado "confMiFS.ini" con un contenido mínimo.
-    ini_FS((fs::FS&)SPIFFS); //static
-    _show_title("1. SECTIONS-KEYS-VALUES IN SPIFFS:");
-    ini.showKeysValues();
+    // Objeto representando la librería
+    minIniFS ini(fileName);
 
-    _show_title("| INI MODIFIED: |");
-    Serial.println(" overwrite user.name, user.name2 and user.ID");
-    //lee
-    String name = ini.gets( "user", "name" , "Isaac" );
-    String name2 = ini.gets( "user", "name2" , "Asimov" );
-    long ID = ini.getl( "user", "id" , 1234 );
-    //escribe
-    ini.put( "user", "name" , name.equals("Isaac") ? "Carl" : "Isaac" );
-    ini.put( "user", "name2" , name2.equals("Asimov") ? "Sagan" : "Asimov" );
-    ini.put( "user", "ID" , ID == 1234 ? 4321 : 1234 );
-    
-    _show_title("2. SECTIONS-KEYS-VALUES IN SPIFFS:");
-    ini.showKeysValues();
+    if (spiffs_ok)
+    {
+        // si no existe el '.ini' se creará uno por defecto llamado "confMiFS.ini" con un contenido mínimo.
+        ini_FS((fs::FS &)SPIFFS); // static
 
-    _show_title("| SPIFFS List: |");
-    _SPIFFS_listDir("/", 1);
-  }
+        _show_title("| SPIFFS List: |");
+        _SPIFFS_listDir("/", 1);
+        Serial.println();
+
+        Serial.print("working at File: "); Serial.println(fileName);
+        _show_title("1. SECTIONS-KEYS-VALUES IN SPIFFS:");
+        ini.showKeysValues();
+
+        _show_title("| INI MODIFIED: |");
+        Serial.println(F(" overwrite user.name, user.name2 and user.ID"));
+        // lee
+        String name = ini.gets("user", "name", "Isaac");
+        String name2 = ini.gets("user", "name2", "Asimov");
+        long ID = ini.getl("user", "id", 1234);
+        // escribe
+        ini.put("user", "name", name.equals("Isaac") ? "Carl" : "Isaac");
+        ini.put("user", "name2", name2.equals("Asimov") ? "Sagan" : "Asimov");
+        ini.put("user", "ID", ID == 1234 ? 4321 : 1234);
+
+        _show_title("2. SECTIONS-KEYS-VALUES IN SPIFFS:");
+        ini.showKeysValues();
+    }
 }
 
-void loop(){
-  if(initial){
-    Serial.println();
-    Serial.println(" ---- LOOP RUNNING ---");
-    initial = false;
-  }
+void loop()
+{
+    if (initial)
+    {
+        Serial.println();
+        Serial.println(F(" ---- LOOP RUNNING ---"));
+        initial = false;
+    }
 }
