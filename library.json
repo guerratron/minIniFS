@@ -1,0 +1,14 @@
+{
+  "name": "minIniFS",
+  "version": "1.0",
+  "keywords": "ini, cfg, fs, sd, spiffs, littlefs, file",
+  "description": "Library to read and write .ini files. minIniFS is a (Arduino) library to read and write .ini or .cfg files on the SD or SPIFFS.",
+  "exclude": "doc",
+  "repository":
+  {
+    "type": "github",
+    "url": "https://github.com/guerratron/minIniFS"
+  },
+  "frameworks": "arduino",
+  "platforms": "*"
+}
