@@ -23,12 +23,14 @@
 
  /*  minIniFS - Arduino INI file parser, suitable for embedded systems
  *  Based: It's based in the minIni library from "minIni4Arduino"
+ *  Ahora el método "showKeysValues(..)" realiza una comprobación de la primera clave y 
+ *  retorna un booleano indicando si encontró claves o no.
  *
  *  Copyright (c) GuerraTron24, 2024-2033
  *
  *  Licensed under the Apache License, Version 2.0
  *
- *  Version: 1.0.0 $ minIniFS.h 2024-09-16 13:35:11Z guerratron24.dinertron@gmail.com $
+ *  Version: 1.0.1 $ minIniFS.h 2024-10-30 12:30:10Z guerratron24.dinertron@gmail.com $
  */
 
 #if (defined _UNICODE || defined __UNICODE__ || defined UNICODE) && !defined INI_ANSIONLY

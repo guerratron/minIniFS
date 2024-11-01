@@ -14,17 +14,19 @@
  *  License for the specific language governing permissions and limitations
  *  under the License.
  *
- *  Version: $Id: minIniFS.h 53 2015-01-18 13:35:11Z thiadmer.riemersma@gmail.com $
+ *  Version: $Id: minIni.h 53 2015-01-18 13:35:11Z thiadmer.riemersma@gmail.com $
  */
  
  /*  minIniFS - Arduino INI file parser, suitable for embedded systems
  *  Based: It's based in the minIni library from "minIni4Arduino"
+ *  Ahora el método "showKeysValues(..)" realiza una comprobación de la primera clave y 
+ *  retorna un booleano indicando si encontró claves o no.
  *
  *  Copyright (c) GuerraTron24, 2024-2033
  *
  *  Licensed under the Apache License, Version 2.0
  *
- *  Version: 1.0.0 $ minIniFS.h 2024-09-16 13:35:11Z guerratron24.dinertron@gmail.com $
+ *  Version: 1.0.1 $ minIniFS.h 2024-10-30 12:30:10Z guerratron24.dinertron@gmail.com $
  */
 #ifndef MININIFS_H
 #define MININIFS_H
@@ -159,16 +161,24 @@ int  ini_browse(INI_CALLBACK Callback, void *UserData, const mTCHAR *Filename);
 #endif
 
     /** Método para listar todas las claves y valores encontrados en el archivo (El archivo debe existir). 
-      * Debe permitirse la impresión a través de las macros: INI_PRINT y INI_PRINTF4. 
+      * Para ver resultados impresos, debe permitirse la impresión a través de las macros: INI_PRINT y INI_PRINTF4. 
+      * Se le ha añadido una comprobación previa de la primera sección, ahora el método retorna TRUE-FALSE.
       * Basado en 'minIni.pdf'
       */
-    void showKeysValues(){
+    bool showKeysValues(){
         INI_PRINTF4(INFO_HEAD "showKeysValues():\n",NULL,NULL,NULL,NULL);
         unsigned int s, k;
         uint8_t s_max = 40;
         uint8_t k_max = 40;
         char section[s_max], key[k_max], value[120];
          /**/
+        if(ini_getsection(s, section, sizeof section, iniFilename.c_str()) == 0){
+            INI_PRINTF4(INFO_HEAD "\tNO INIFILENAME: %s\n", iniFilename.c_str(), NULL, NULL, NULL);
+            section[0] = '\0';
+            key[0] = '\0';
+            value[0] = '\0';
+            return false;
+        }
         for (s = 0; ini_getsection(s, section, sizeof section, iniFilename.c_str()) > 0; s++) {
             INI_PRINTF4(" [%s]\n",section,NULL,NULL,NULL);
             for (k = 0; ini_getkey(section, k, key, sizeof key, iniFilename.c_str()) > 0; k++){
@@ -194,6 +204,7 @@ int  ini_browse(INI_CALLBACK Callback, void *UserData, const mTCHAR *Filename);
         section[0] = '\0';
         key[0] = '\0';
         value[0] = '\0';
+        return true;
     }
 
   private:

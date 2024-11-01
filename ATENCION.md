@@ -1,6 +1,8 @@
-﻿# LIBRERÍA "minIni4Arduino/minIni.h" 
+﻿# LIBRERÍA "minIni4Arduino/minIni.h"  v1.0.1
 
 Pedazo de mini-librería para parsear LEER-ESCRIBIR archivos similares a los típicos ".ini" ó ".cfg" de Windows.
+
+Ahora el método *"showKeysValues(..)"* realiza una comprobación de la primera clave y retorna un booleano indicando si encontró claves o no.
 
 Leer el README.md
 
@@ -18,11 +20,11 @@ A esta función se le pasará el Sistema de Archivos deseado, por ejemplo:
  minIni ini("/config.ino");
 
  ini_FS(SPIFFS); //leerá el archivo desde el SPIFFS
- Serial .println("From SPIFFS: ");
+ Serial.println("From SPIFFS: ");
  Serial.println(ini.gets("section1", "key1", "default1"));
   
  ini_FS(SD); //leerá el archivo desde la SD
- Serial .println("From SD: ");
+ Serial.println("From SD: ");
  Serial.println(ini.gets("section1", "key1", "default1"));
 ```
 
@@ -40,6 +42,8 @@ Con la macro **INI_PRINTF4** las mismas indicaciones.
 
 Se ha incluido un método (**ini.showKeysValues()**) para listar todas las claves y valores encontrados en el archivo (El archivo debe existir).  
 Debe permitirse la impresión a través de las macros: *INI_PRINT* y *INI_PRINTF4*. 
+
+Ahora este método realiza una comprobación de la primera clave y retorna un booleano indicando si encontró claves o no.
 
 Basado en 'minIni.pdf'.
 

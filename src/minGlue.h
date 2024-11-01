@@ -19,14 +19,17 @@
  * 
  * minIniFS ini("/config.ino");
  * ini_FS(SPIFFS); //leerá el archivo desde el SPIFFS
- * Serial .println("From SPIFFS: ");
+ * Serial.println("From SPIFFS: ");
  * Serial.println(ini.gets("section1", "key1", "default1"));
  * 
  * ini_FS(SD); //leerá el archivo desde la SD
- * Serial .println("From SD: ");
+ * Serial.println("From SD: ");
  * Serial.println(ini.gets("section1", "key1", "default1"));
  * 
  * También admite impresión "serial" para Arduino.
+ * 
+ *  Ahora el método "showKeysValues(..)" realiza una comprobación de la primera clave y 
+ *  retorna un booleano indicando si encontró claves o no.
  * 
 */
 

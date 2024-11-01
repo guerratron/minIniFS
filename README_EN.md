@@ -1,6 +1,9 @@
-# minIniFS (INI file library) for the Arduino IoT world
+# minIniFS v1.0.1 (INI file library) for the Arduino IoT world
 
 minIniFS is a programmer's library to read and write "INI" files in embedded systems.
+
+
+The **"showKeysValues(..)"** method now checks the first key and returns a boolean value if it finds any keys.
 
 It allows you to search for keys in sections, modify them and even list the entire INI file with its Sections-Keys-Values.
 
@@ -72,6 +75,8 @@ A method (**ini.showKeysValues()**) has been included to list all the keys and v
 Printing must be allowed through the macros: *INI_PRINT* and *INI_PRINTF4*.
 
 Based on 'minIni.pdf'.
+
+The **"showKeysValues(..)"** method now checks the first key and returns a boolean value if it finds any keys.
 
 ## ADAPTATIONS by GuerraTron24 <dinertron@gmail.com>:
 

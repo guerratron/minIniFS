@@ -1,186 +1,129 @@
-# minIni4Arduino (INI file library) for Arduino
+# minIniFS v1.0.1 (INI file library) for the Arduino IoT world
 
-This is the minIni library ported for Arduino.
-
-The original minIni is below.
-
-[https://github.com/compuphase/minIni](https://github.com/compuphase/minIni)
-
-NOTE
-- 8.3 filename only (due to Arduino's SD library)
-- Write functions are slow. (due to Arduino's SD and File library)
-- This library uses Arduino's String class istead of std::string.
-- For plain INI file, specify the section as "". NULL is unsupported.
-- This library is verified to work with GR-ROSE (Renesas RX65N)
-- Case insensitive matching for section / key
-
-# minIni
-
-minIni is a portable and configurable library for reading and writing ".INI" files. At just below 900 lines of commented source 
-code, minIni truly is a "mini" INI file parser, especially considering its features.
-
-The library does not require the file I/O functions from the standard C/C++ library, but instead lets you configure 
-the file I/O interface to use via macros. minIni uses limited stack space and does not use dynamic memory (malloc and 
-friends) at all.
-
-Some minor variations on standard INI files are supported too, notably minIni supports INI files that lack sections.
+minIniFS is a programmer's library to read and write "INI" files in embedded systems.
 
 
-# Acknowledgement
+The **"showKeysValues(..)"** method now checks the first key and returns a boolean value if it finds any keys.
 
-minIni is derived from an earlier INI file parser (which I wrote) for desktop systems.
+It allows you to search for keys in sections, modify them and even list the entire INI file with its Sections-Keys-Values.
 
-In turn, that earlier parser was a re-write of the code from the article "Multiplatform .INI Files" by Joseph J. Graf 
-in the March 1994 issue of Dr. Dobb's Journal. In other words, minIni has its roots in the work of Joseph Graf (even 
-though the code has been almost completely re-written).
+### Acknowledgement
 
+> This work is based on the "minIni4Arduino" library [minIni4Arduino](https://github.com/lipoyang/minIni4Arduino)
 
-# Features
-
-minIni is a programmer's library to read and write "INI" files in embedded systems. minIni takes little resources, 
-can be configured for various kinds of file I/O libraries and provides functionality for reading, writing and 
-deleting keys from an INI file.
-
-Although the main feature of minIni is that it is small and minimal, it has a few other features:
-
- * minIni supports reading keys that are outside a section, and it thereby supports configuration files that do not use sections (but that are otherwise compatible with INI files).
- * You may use a colon to separate key and value; the colon is equivalent to the equal sign. That is, the strings "Name: Value" and "Name=Value" have the same meaning.
- * The hash character ("#") is an alternative for the semicolon to start a comment. Trailing comments (i.e. behind a key/value pair on a line) are allowed.
- * Leading and trailing white space around key names and values is ignored.
- * When writing a value that contains a comment character (";" or "#"), that value will automatically be put between double quotes; when reading the value, these quotes are removed. When a double-quote itself appears in the setting, these characters are escaped.
- * Section and key enumeration are supported.
- * You can optionally set the line termination (for text files) that minIni will use. (This is a compile-time setting, not a run-time setting.)
- * Since writing speed is much lower than reading speed in Flash memory (SD/MMC cards, USB memory sticks), minIni minimizes "file writes" at the expense of double "file reads".
- * The memory footprint is deterministic. There is no dynamic memory allocation. 
-
-## INI file reading paradigms
-
-There are two approaches to reading settings from an INI file. One way is to call a function, such as 
-GetProfileString() for every section and key that you need. This is especially convenient if there is a large 
-INI file, but you only need a few settings from that file at any time &mdash;especially if the INI file can also 
-change while your program runs. This is the approach that the Microsoft Windows API uses.
-
-The above procedure is quite inefficient, however, when you need to retrieve quite a few settings in a row from 
-the INI file &mdash;especially if the INI file is not cached in memory (which it isn't, in minIni). A different approach 
-to getting settings from an INI file is to call a "parsing" function and let that function call the application 
-back with the section and key names plus the associated data. XML parsing libraries often use this approach; see 
-for example the Expat library.
-
-minIni supports both approaches. For reading a single setting, use functions like ini_gets(). For the callback 
-approach, implement a callback and call ini_browse(). See the minIni manual for details.
+>  All of this is also derived from the great compuphase library of [minIni](https://github.com/compuphase/minIni)
 
 
-# INI file syntax
+# Use
 
-INI files are best known from Microsoft Windows, but they are also used with applications that run on other 
-platforms (although their file extension is sometimes ".cfg" instead of ".ini").
+It is used following similar instructions to those of the "minIni4Arduino" library, for more detailed information read the original 
+[README.md](https://github.com/lipoyang/minIni4Arduino/blob/master/README.md)
 
-INI files have a simple syntax with name/value pairs in a plain text file. The name must be unique (per section) 
-and the value must fit on a single line. INI files are commonly separated into sections &mdash;in minIni, this is 
-optional. A section is a name between square brackets, like "[Network]" in the example below.
+Generally, install it from the Arduino IDE library manager (if it exists).
 
-```
-[Network]
-hostname=My Computer
-address=dhcp
-dns = 192.168.1.1
+Another alternative way would be to copy the directory and include it "by hand" in the Arduino libraries folder (inside "../libraries/"),
+then restart the IDE.
+
+# Examples
+
+There are two usage examples in the "/examples" folder:
+ - Simple_Test : Demonstrates reading a "**confMiFS.ini**" file of its *Sections, Keys and Values*, both in **SD** and **SPIFFS**.
+ - SPIFFS_Test : Demonstrates how to change Values ​​in Sections, only in **SPIFFS**, and lists the *root* directory.
+
+--------------------------------------------------------
+# MODIFICATIONS TO THE ORIGINAL "minIni4Arduino" LIBRARY
+--------------------------------------------------------
+### NOTE
+- This library is verified to work with ESP32 (DOIT DevKit v1) + SD-Shield
+- It has been tested using the Arduino IDE
+
+#### ONLY WORKS IF ADDED TO THE ARDUINO GLOBAL LIBRARY DIRECTORY
+
+# ADDED SUPPORT FOR SPIFFS
+(Modification by GuerraTron24 <dinertron@gmail.com>)
+
+Now it can work with both SD and SPIFFS (it will work on files with a generic handler like "fs::File").
+
+For this purpose, a static function "ini_FS(..)" has been added, which should be called before the read and write methods.
+This function will be passed the desired File System, for example:
+
+```c
+minIniFS ini("/config.ino");
+
+ini_FS(SPIFFS); //will read the file from the SPIFFS
+Serial .println("From SPIFFS: ");
+Serial.println(ini.gets("section1", "key1", "default1"));
+
+ini_FS(SD); //will read the file from the SD
+Serial . println("From SD: ");
+Serial. println(ini. gets("section1", "key1", "default1"));
 ```
 
-In the API and in this documentation, the "name" for a setting is denoted as the key for the setting. The key 
-and the value are separated by an equal sign ("="). minIni supports the colon (":") as an alternative to the 
-equal sign for the key/value delimiter.
+# ADDED SUPPORT FOR PRINT AND PRINTF
 
-Leading a trailing spaces around values or key names are removed. If you need to include leading and/or trailing 
-spaces in a value, put the value between double quotes. The ini_gets() function (from the minIni library, see the 
-minIni manual) strips off the double quotes from the returned value. Function ini_puts() adds double quotes if 
-the value to write contains trailing white space (or special characters).
+To keep track of the actions performed, a synonym for "print" and "printf" has been implemented.
+This will print to the output device (terminal, serial port, ..)
 
-minIni ignores spaces around the "=" or ":" delimiters, but it does not ignore spaces between the brackets in a 
-section name. In other words, it is best not to put spaces behind the opening bracket "[" or before the closing 
-bracket "]" of a section name.
+You only have to modify the macro **INI_PRINT** by selecting one of the possible **INI_PRINT_NONE**, **INI_PRINT_C** or **INI_PRINT_ARDUINO**.
+By default **INI_PRINT_NONE** (Or comment out the lines that contain this macro).
 
-Comments in the INI must start with a semicolon (";") or a hash character ("#"), and run to the end of the line. 
-A comment can be a line of its own, or it may follow a key/value pair (the "#" character and trailing comments 
-are extensions of minIni).
+With the macro **INI_PRINTF4** the same instructions.
 
-For more details on the format, please see http://en.wikipedia.org/wiki/INI_file. 
+# TEST TO CHECK SECTIONS, KEYS AND VALUES
 
+A method (**ini.showKeysValues()**) has been included to list all the keys and values ​​found in the file (The file must exist).
+Printing must be allowed through the macros: *INI_PRINT* and *INI_PRINTF4*.
 
-# Adapting minIni to a file system
+Based on 'minIni.pdf'.
 
-The minIni library must be configured for a platform with the help of a so- called "glue file". This glue file 
-contains macros (and possibly functions) that map file reading and writing functions used by the minIni library 
-to those provided by the operating system. The glue file must be called "minGlue.h".
+The **"showKeysValues(..)"** method now checks the first key and returns a boolean value if it finds any keys.
 
-To get you started, the minIni distribution comes with the following example glue files:
+## ADAPTATIONS by GuerraTron24 <dinertron@gmail.com>:
 
- * a glue file that maps to the standard C/C++ library (specifically the file I/O functions from the "stdio" package),
- * a glue file for Microchip's "Memory Disk Drive File System Library" (see http://www.microchip.com/),
- * a glue file for the FAT library provided with the CCS PIC compiler (see http://www.ccsinfo.com/)
- * a glue file for the EFS Library (EFSL, http://www.efsl.be/),
- * and a glue file for the FatFs and Petit-FatFs libraries (http://elm-chan.org/fsw/ff/00index_e.html). 
+I had to modify the functions "ini_openread(..), ini_openwrite(), ini_rename()" in the file "minGlue.h" because it caused a **FATAL ERROR** due to not checking
+if the method "file.name()" returned NULL. As an example, one of the corrections in the functions would be like this:
 
-The minIni library does not rely on the availability of a standard C library, because embedded operating systems 
-may have limited support for file I/O. Even on full operating systems, separating the file I/O from the INI format 
-parsing carries advantages, because it allows you to cache the INI file and thereby enhance performance.
-
-The glue file must specify the type that identifies a file, whether it is a handle or a pointer. For the standard 
-C/C++ file I/O library, this would be:
-
-```C
-#define INI_FILETYPE        FILE*
+```c
+...
+static int ini_openread(const char* filename, INI_FILETYPE *file)
+{
+  *file = SD.open(filename, FILE_READ);
+  if(!file){
+    Serial.println("Failed to open file for reading");
+    return 0;
+  }
+  return (file->name() && ((file->name())[0] != 0) );
+}
+...
 ```
 
-If you are not using the standard C/C++ file I/O library, chances are that you need a different handle or 
-"structure" to identify the storage than the ubiquitous "FILE*" type. For example, the glue file for the FatFs 
-library uses the following declaration:
+With this I was able to read files.
 
-```C
-#define INI_FILETYPE        FIL
-```
+The SD library is a bit delicate and if you don't give it the "slashbar" at the beginning of the file name it is not able to find it properly. Also there are different versions
+for different Micros like AVR, ESP, .. and they could be mixed up.
 
-The minIni functions declare variables of this INI_FILETYPE type and pass these variables to sub-functions 
-(including the glue interface functions) by reference.
+I also had to make a few "castings" to variables of the "char-array" type to tell it to treat them as "(uint8_t\*)", in the places that the compiler was telling me... for example in what are now the lines: 171, 200, 201, .. of the "minGlue.h" file.
 
-For "write support", another type that must be defined is for variables that hold the "current position" in a 
-file. For the standard C/C++ I/O library, this is "fpos_t".
+Some more minor changes to adapt it to the Arduino IDE, such as the properties file, keywords, ..
 
-Another item that needs to be configured is the buffer size. The functions in the minIni library allocate this 
-buffer on the stack, so the buffer size is directly related to the stack usage. In addition, the buffer size 
-determines the maximum line length that is supported in the INI file and the maximum path name length for the 
-temporary file. For example, minGlue.h could contain the definition:
+## TESTS OK
 
-```C
-#define INI_BUFFERSIZE      512
-```
+I have run some reading and writing tests on the **SD** and the **SPIFFS** and everything has gone GREAT, it seems that the library leaves a VERY SMALL **Memory Footprint** compared to everything
+it does.
 
-The above macro limits the line length of the INI files supported by minIni to 512 characters.
+According to what I have read from the author **it does NOT cause fragmentation in the HEAP**, and only deals with a user-configurable BUFFER for reading a complete line (by default 512 bytes).
 
-The temporary file is only used when writing to INI files. The minIni routines copy/change the INI file to a 
-temporary file and then rename that temporary file to the original file. This approach uses the least amount of 
-memory. The path name of the temporary file is the same as the input file, but with the last character set to a 
-tilde ("~").
+## PENDING
 
-Below is an example of a glue file (this is the one that maps to the C/C++ "stdio" library).
+Update examples to support this change.
 
-```C
-#include <stdio.h>
+Compatibility with LittleFS
 
-#define INI_FILETYPE                  FILE*
-#define ini_openread(filename,file)   ((*(file) = fopen((filename),"r")) != NULL)
-#define ini_openwrite(filename,file)  ((*(file) = fopen((filename),"w")) != NULL)
-#define ini_close(file)               (fclose(*(file)) == 0)
-#define ini_read(buffer,size,file)    (fgets((buffer),(size),*(file)) != NULL)
-#define ini_write(buffer,file)        (fputs((buffer),*(file)) >= 0)
-#define ini_rename(source,dest)       (rename((source), (dest)) == 0)
-#define ini_remove(filename)          (remove(filename) == 0)
+### ACKNOWLEDGEMENTS
 
-#define INI_FILEPOS                   fpos_t
-#define ini_tell(file,pos)            (fgetpos(*(file), (pos)) == 0)
-#define ini_seek(file,pos)            (fsetpos(*(file), (pos)) == 0)
-```
+Many thanks to the author of the library: *Bizan Nishimura (lipoyang)* <http://lipoyang.net> it is a GREAT JOB.  
+I downloaded the library from: https://github.com/lipoyang/minIni4Arduino
 
-As you can see, a glue file is mostly a set of macros that wraps one function definition around another.
+#### By
 
-The glue file may contain more settings, for support of rational numbers, to explicitly set the line termination 
-character(s), or to disable write support (for example). See the manual that comes with the archive for the details. 
+Juanjo Guerra - GuerraTron24 - <dinertron@gmail>
