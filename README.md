@@ -1,4 +1,6 @@
-# minIniFS v1.0.1 (INI file library) for the Arduino IoT world
+# minIniFS v1.0.1 (INI file library) for the Arduino IoT world (outdated project)
+
+[OUTDATE PROJECT]
 
 minIniFS is a programmer's library to read and write "INI" files in embedded systems.
 
