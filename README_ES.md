@@ -1,4 +1,6 @@
-# minIniFS v1.0.1 (biblioteca archivos INI) para el mundo IoT de Arduino
+# minIniFS v1.0.1 (biblioteca archivos INI) para el mundo IoT de Arduino (PROYECTO DESACTUALIZADO / ABANDONADO)
+
+[PROYECTO DESACTUALIZADO / ABANDONADO]
 
 **minIniFS** es una librería de programador para leer y escribir archivos "INI" en *sistemas integrados* (embebidos).
 
